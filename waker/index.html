@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WAKER. — 友達と競う、強制起床アプリ</title>
+<meta name="description" content="アラームが鳴ったらバーコードをスキャン。3分以内に証明できなければ友達に自動通報。友達と競い合いながら確実に起きられる、新感覚の起床アプリ。" />
+<meta name="theme-color" content="#0a0a0e" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏰</text></svg>" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="WAKER. — 友達と競う、強制起床アプリ" />
+<meta property="og:description" content="3分以内にバーコードをスキャンして起床を証明。失敗すれば友達に自動通報。" />
+<meta property="og:url" content="https://asanoitsuki.github.io/waker/" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0e;
+    --surface: rgba(255,255,255,0.05);
+    --border: rgba(255,255,255,0.08);
+    --text: #f0f0f2;
+    --sub: #888;
+    --flame: #ff6a1a;
+    --dawn: #e8c97a;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px 80px;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,106,26,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 20% 100%, rgba(20,20,60,0.6) 0%, transparent 60%),
+      var(--bg);
+  }
+  .logo {
+    font-size: clamp(56px, 14vw, 96px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    line-height: 1;
+  }
+  .logo-dot { color: var(--flame); }
+  .tagline {
+    margin-top: 20px;
+    font-size: clamp(16px, 4vw, 22px);
+    font-weight: 500;
+    color: var(--sub);
+    letter-spacing: 0.01em;
+  }
+  .tagline strong { color: var(--text); font-weight: 700; }
+
+  .cta {
+    margin-top: 44px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--flame);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 16px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .cta:hover { opacity: 0.85; transform: scale(1.03); }
+  .cta svg { width: 20px; height: 20px; }
+
+  .badges {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--sub);
+  }
+
+  /* FEATURES */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+  .section-title {
+    font-size: clamp(22px, 5vw, 32px);
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 48px;
+    letter-spacing: -0.02em;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px 24px;
+  }
+  .card-icon {
+    font-size: 32px;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .card-desc {
+    font-size: 14px;
+    color: var(--sub);
+    line-height: 1.6;
+  }
+
+  /* HOW */
+  .steps {
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    counter-increment: step;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--flame);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step-body { flex: 1; }
+  .step-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .step-desc { font-size: 14px; color: var(--sub); line-height: 1.6; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 24px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--sub);
+  }
+  footer a { color: var(--sub); text-decoration: underline; }
+  footer a:hover { color: var(--text); }
+
+  @media (max-width: 480px) {
+    .hero { padding: 48px 20px 64px; }
+    .section { padding: 60px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <h1 class="logo">WAKER<span class="logo-dot">.</span></h1>
+  <p class="tagline">
+    アラームが鳴ったら<strong>3分以内にバーコードをスキャン</strong>。<br>
+    失敗すれば友達に<strong>自動通報</strong>。
+  </p>
+
+  <a class="cta" href="https://apps.apple.com/jp/app/waker/id6746419195" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    App Store でダウンロード
+  </a>
+  <p class="badges">iOS 17以降対応 ・ 無料</p>
+</section>
+
+<!-- FEATURES -->
+<section class="section">
+  <h2 class="section-title">WAKER. でできること</h2>
+  <div class="grid">
+    <div class="card">
+      <span class="card-icon">⏰</span>
+      <p class="card-title">複数アラームを管理</p>
+      <p class="card-desc">曜日ごとの繰り返し設定や、複数アラームをリストで管理。ToggleをONにするだけで自動でセットされます。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">📦</span>
+      <p class="card-title">バーコードスキャンで証明</p>
+      <p class="card-desc">起床後3分以内に、ベッドから離れた場所にある物のバーコードをスキャン。スマホを置いたまま二度寝は不可能。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">📢</span>
+      <p class="card-title">失敗すると友達に自動通報</p>
+      <p class="card-desc">3分以内に証明できなければ「二度寝した」という投稿がフィードに自動掲載。友達からのプレッシャーが起床を後押しします。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🏆</span>
+      <p class="card-title">友達と起床タイムで競う</p>
+      <p class="card-desc">毎日のランキングで友達との起床タイムを比較。相互フォローした友達同士でフィードとランキングを共有。</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" style="padding-top: 0;">
+  <h2 class="section-title">使い方</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <p class="step-title">アラームを追加</p>
+        <p class="step-desc">起床時刻・サウンド・繰り返し曜日を設定。ミッションアイテムを登録すれば特定のバーコードが必須に。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <p class="step-title">アラームが鳴ったら</p>
+        <p class="step-desc">「ミッションを開始する」をタップ。3分のカウントダウンが始まります。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <p class="step-title">バーコードをスキャン → 寝起き顔を撮影</p>
+        <p class="step-desc">ベッドから離れてバーコードをスキャン。その後インカメラで寝起き顔を撮影して起床を証明。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <p class="step-title">フィードに投稿 &amp; ランキング更新</p>
+        <p class="step-desc">起床タイムが友達のフィードとランキングに反映。3分以内に証明できなければ「敗北投稿」が自動送信。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    <a href="https://asanoitsuki.github.io/privacy.html">プライバシーポリシー</a>
+    &nbsp;·&nbsp;
+    © 2025 Itsuki Asano
+  </p>
+</footer>
+
+</body>
+</html>
